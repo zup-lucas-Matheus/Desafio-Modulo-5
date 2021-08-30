@@ -2,6 +2,7 @@ package br.com.example.zup_face.mensagem;
 
 
 import br.com.example.zup_face.dto.MensagemDto;
+import br.com.example.zup_face.dto.QuantidadeMsnNaoLida;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,6 +43,15 @@ public class MensagemController {
 
     }
 
+    @GetMapping("/usuario/perfil/{email}")
+    public QuantidadeMsnNaoLida quantidadeDeMSN(@PathVariable String email){
+        QuantidadeMsnNaoLida msn = new QuantidadeMsnNaoLida();
+
+        msn.setMensagemNaoView(mensagemService.filtrarMensagem(email).size());
+
+        return  msn;
+
+    }
 
 
 }
