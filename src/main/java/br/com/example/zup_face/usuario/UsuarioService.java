@@ -29,7 +29,7 @@ public class UsuarioService {
     }
     //Metódo para deletar usuarios
     public void deleteUsuario(String email){
-        usuarioRepository.deleteById(email);
+        usuarioRepository.delete(findForIdEmail(email));
 
     }
 
