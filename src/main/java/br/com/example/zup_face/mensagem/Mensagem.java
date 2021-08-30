@@ -22,6 +22,7 @@ public class Mensagem {
     @ManyToOne
     @JoinColumn(name = "user_origem")
     private Usuario emailOrigem;
+    @ManyToOne
     @JoinColumn(name = "user_destino")
     private Usuario emailDestino;
     private Visualizado visualizado;
