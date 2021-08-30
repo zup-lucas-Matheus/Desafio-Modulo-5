@@ -50,5 +50,10 @@ public class MensagemService {
         return mensageRepository.findById(id);
     }
 
+    //Metódo para deletar a mensagem.
+    public void deleteMessage(Integer id) throws Exception {
+        mensageRepository.deleteById(id);
+    }
+
 
 }
