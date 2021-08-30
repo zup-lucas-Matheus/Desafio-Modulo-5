@@ -27,5 +27,10 @@ public class UsuarioService {
                 .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
 
     }
+    //Metódo para deletar usuarios
+    public void deleteUsuario(String email){
+        usuarioRepository.deleteById(email);
+
+    }
 
 }
