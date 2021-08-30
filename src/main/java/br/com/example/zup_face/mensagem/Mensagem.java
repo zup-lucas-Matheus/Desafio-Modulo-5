@@ -1,6 +1,7 @@
 package br.com.example.zup_face.mensagem;
 
 
+import br.com.example.zup_face.enums.Visualizado;
 import br.com.example.zup_face.usuario.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class Mensagem {
     private Usuario emailOrigem;
     @JoinColumn(name = "user_destino")
     private Usuario emailDestino;
+    private Visualizado visualizado;
 
 
 }
