@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,9 +19,9 @@ public class UsuarioController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Usuario saveUsuario(@RequestBody Usuario usuario){
+    public Usuario saveUsuario(@RequestBody @Valid Usuario usuario){
 
-        return usuarioService.saveUsuario(usuario);
+        return usuarioService.saveUsuario(modelMapper.map(usuario, Usuario.class));
     }
 
     @GetMapping
