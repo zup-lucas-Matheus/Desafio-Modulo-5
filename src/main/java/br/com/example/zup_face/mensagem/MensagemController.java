@@ -30,9 +30,16 @@ public class MensagemController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping
-    public void deleteMensagem(Integer id) throws Exception {
+    @DeleteMapping("/{id}")
+    public void deleteMensagem(@PathVariable Integer id) throws Exception {
         mensagemService.deleteMensagem(id);
+    }
+
+    @GetMapping("/{mensagemId}")
+    public MensagemDto viewMessages(@PathVariable(name = "mensagemId") Integer id) throws Exception {
+        Mensagem mensagem = mensagemService.visualizarMsnPorId(id);
+        return modelMapper.map(mensagem, MensagemDto.class);
+
     }
 
 
