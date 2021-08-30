@@ -6,6 +6,7 @@ import br.com.example.zup_face.usuario.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,6 +65,25 @@ public class MensagemService {
             return mensagemBusca.get();
         }
         throw new Exception("Mensagem não encontrada");
+
+    }
+
+    //Visualizar mensagem por id da mensagem.
+    public Mensagem viewMenssageForId(Integer id) throws Exception {
+        Mensagem mensagem = new Mensagem();
+        mensagem = findMenssageForId(id);
+
+        if (mensagem == findMenssageForId(id)) {
+            mensagem.setVisualizado(Visualizado.VISUALIZADO);
+            //DATA
+            mensageRepository.save(mensagem);
+            return mensagem;
+        }
+        else {
+
+            mensagem.setVisualizado(Visualizado.NAO_VISUALIZADO);
+            return mensagem;
+        }
 
     }
 
