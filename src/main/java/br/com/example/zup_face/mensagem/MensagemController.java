@@ -12,7 +12,8 @@ public class MensagemController {
 
     @Autowired
     private MensagemService mensagemService;
-
+    @Autowired
+    private ModelMapper modelMapper;
 
 
 
