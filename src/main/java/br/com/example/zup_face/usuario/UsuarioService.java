@@ -9,4 +9,9 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    //Metódo para cadastrar usuario.
+    public Usuario saveUsuario(Usuario usuario){
+        return usuarioRepository.save(usuario);
+    }
+
 }
