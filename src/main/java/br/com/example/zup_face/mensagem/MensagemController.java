@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,7 +21,7 @@ public class MensagemController {
     private ModelMapper modelMapper;
 
     @PostMapping("/chat")
-    public Mensagem saveMensagerZupper(@RequestBody MensagemDto mensagemDto) throws Exception {
+    public Mensagem saveMensagerZupper(@RequestBody @Valid MensagemDto mensagemDto) throws Exception {
         Mensagem mensagem = modelMapper.map(mensagemDto, Mensagem.class);
         return mensagemService.sendMensagem(mensagemDto.getEmailOrigem(), mensagemDto.getEmailDestino(), mensagem);
     }
@@ -40,17 +41,14 @@ public class MensagemController {
     public MensagemDto viewMessages(@PathVariable(name = "mensagemId") Integer id) throws Exception {
         Mensagem mensagem = mensagemService.visualizarMsnPorId(id);
         return modelMapper.map(mensagem, MensagemDto.class);
-
     }
 
     @GetMapping("/usuario/perfil/{email}")
     public QuantidadeMsnNaoLida quantidadeDeMSN(@PathVariable String email){
+
         QuantidadeMsnNaoLida msn = new QuantidadeMsnNaoLida();
-
         msn.setMensagemNaoView(mensagemService.filtrarMensagem(email).size());
-
         return  msn;
-
     }
 
 
