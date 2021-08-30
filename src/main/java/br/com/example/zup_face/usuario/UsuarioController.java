@@ -25,6 +25,11 @@ public class UsuarioController {
 
     }
 
+    @GetMapping("/{email}")
+    public Usuario findUsuarioForId(String email){
+        return usuarioService.findForIdEmail(email);
+    }
+
 
 
 
