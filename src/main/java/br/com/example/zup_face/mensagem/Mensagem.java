@@ -18,6 +18,7 @@ public class Mensagem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String mensagem;
     @ManyToOne
     @JoinColumn(name = "user_origem")
     private Usuario emailOrigem;
