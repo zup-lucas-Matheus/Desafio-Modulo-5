@@ -41,7 +41,7 @@ public class MensagemService {
     }
 
     //Metódo para mostrar todas as mensagens.
-    public List<Mensagem> mensagens() {
+    public List<Mensagem> allMensagens() {
         return (List<Mensagem>) mensageRepository.findAll();
 
     }
@@ -52,7 +52,7 @@ public class MensagemService {
     }
 
     //Metódo para deletar a mensagem.
-    public void deleteMessage(Integer id) throws Exception {
+    public void deleteMensagem(Integer id) throws Exception {
         mensageRepository.delete(findMenssageForId(id));
     }
 
@@ -69,7 +69,7 @@ public class MensagemService {
     }
 
     //Visualizar mensagem por id da mensagem.
-    public Mensagem viewMenssageForId(Integer id) throws Exception {
+    public Mensagem visualizarMsnPorId(Integer id) throws Exception {
         Mensagem mensagem = new Mensagem();
         mensagem = findMenssageForId(id);
 
@@ -84,6 +84,13 @@ public class MensagemService {
             mensagem.setVisualizado(Visualizado.NAO_VISUALIZADO);
             return mensagem;
         }
+
+    }
+
+    //Metódo para trazer a quantidade de mensagens não vizualizadas.
+    public List<Mensagem> filtrarMensagem(String email){
+
+        return this.mensageRepository.findAllByEmailDestinoEmailAndVisualizado(email, Visualizado.NAO_VISUALIZADO);
 
     }
 
