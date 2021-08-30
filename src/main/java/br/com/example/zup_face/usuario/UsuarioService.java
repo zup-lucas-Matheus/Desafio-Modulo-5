@@ -33,4 +33,10 @@ public class UsuarioService {
 
     }
 
+    //Metódo para verificar se já existe.
+    public boolean existUsuario(String email){
+        return usuarioRepository.findByEmail(email).isPresent();
+
+    }
+
 }
