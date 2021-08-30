@@ -21,4 +21,11 @@ public class UsuarioService {
         return (List<Usuario>) usuarioRepository.findAll();
     }
 
+    //Metódo para encontrar o usuario por ID.
+    public Usuario findForIdEmail(String email){
+        return usuarioRepository.findById(email)
+                .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+
+    }
+
 }
