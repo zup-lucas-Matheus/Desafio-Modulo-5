@@ -52,8 +52,19 @@ public class MensagemService {
 
     //Metódo para deletar a mensagem.
     public void deleteMessage(Integer id) throws Exception {
-        mensageRepository.deleteById(id);
+        mensageRepository.delete(findMenssageForId(id));
     }
 
+    //Pesquisar mensagem por id
+    public Mensagem findMenssageForId(Integer id) throws Exception {
+
+        Optional<Mensagem> mensagemBusca = mensageRepository.findById(id);
+
+        if (mensagemBusca.isPresent()) {
+            return mensagemBusca.get();
+        }
+        throw new Exception("Mensagem não encontrada");
+
+    }
 
 }
