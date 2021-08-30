@@ -6,6 +6,8 @@ import br.com.example.zup_face.usuario.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MensagemService {
 
@@ -14,6 +16,7 @@ public class MensagemService {
     @Autowired
     private UsuarioService usuarioService;
 
+    //Metódo para enviar mensagens entre os usuarios.
     public Mensagem sendMensagem(String emailorigem, String emailDestino, Mensagem mensagem) throws Exception {
 
         Mensagem newMensagem = new Mensagem();
@@ -26,7 +29,7 @@ public class MensagemService {
         if (usuarioService.existUsuario(emailDestino)) {
             Usuario usuarioDestino = usuarioService.findForIdEmail(emailDestino);
             newMensagem.setEmailDestino(usuarioDestino);
-            //naoVisualizado
+            newMensagem.setVisualizado(Visualizado.NAO_VISUALIZADO);
             newMensagem.setMensagem(mensagem.getMensagem());
             return mensageRepository.save(newMensagem);
         }
@@ -35,5 +38,9 @@ public class MensagemService {
 
     }
 
+    //Metódo para mostrar todas as mensagens.
+    public List<Mensagem> mensagens() {
+        return (List<Mensagem>) mensageRepository.findAll();
 
+    }
 }
