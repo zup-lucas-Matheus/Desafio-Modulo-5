@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MensagemService {
@@ -43,4 +44,11 @@ public class MensagemService {
         return (List<Mensagem>) mensageRepository.findAll();
 
     }
+
+    //Metódo para buscar a mensagem por id.
+    public Optional<Mensagem> findByIdMessager(int id){
+        return mensageRepository.findById(id);
+    }
+
+
 }
