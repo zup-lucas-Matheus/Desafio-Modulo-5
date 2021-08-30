@@ -4,6 +4,7 @@ package br.com.example.zup_face.mensagem;
 import br.com.example.zup_face.dto.MensagemDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +27,12 @@ public class MensagemController {
     @GetMapping
     public List<Mensagem> allMensagens() {
         return mensagemService.allMensagens();
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping
+    public void deleteMensagem(Integer id) throws Exception {
+        mensagemService.deleteMensagem(id);
     }
 
 
