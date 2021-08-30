@@ -1,5 +1,6 @@
 package br.com.example.zup_face.usuario;
 
+import br.com.example.zup_face.enums.Cargo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ public class Usuario {
     private String email;
     private String nome;
     private String sobrenome;
+    private Cargo cargo;
 
 
 }
