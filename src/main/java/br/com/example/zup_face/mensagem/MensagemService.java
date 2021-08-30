@@ -26,6 +26,7 @@ public class MensagemService {
         if (usuarioService.existUsuario(emailorigem)) {
             Usuario usuarioOrigem = usuarioService.findForIdEmail(emailorigem);
             newMensagem.setEmailOrigem(usuarioOrigem);
+            newMensagem.setDate(LocalDateTime.now());
             //data
         }
         if (usuarioService.existUsuario(emailDestino)) {
@@ -75,12 +76,12 @@ public class MensagemService {
 
         if (mensagem == findMenssageForId(id)) {
             mensagem.setVisualizado(Visualizado.VISUALIZADO);
-            //DATA
+            mensagem.setDate(LocalDateTime.now());
             mensageRepository.save(mensagem);
+            enviarMensagemAutomatica(mensagem.getEmailOrigem().getEmail(), mensagem.getEmailDestino().getNome());
             return mensagem;
         }
         else {
-
             mensagem.setVisualizado(Visualizado.NAO_VISUALIZADO);
             return mensagem;
         }
@@ -89,9 +90,31 @@ public class MensagemService {
 
     //Metódo para trazer a quantidade de mensagens não vizualizadas.
     public List<Mensagem> filtrarMensagem(String email){
-
         return this.mensageRepository.findAllByEmailDestinoEmailAndVisualizado(email, Visualizado.NAO_VISUALIZADO);
+    }
+
+    public void enviarMensagemAutomatica(String emailDestino, String nomeDestino) throws Exception {
+
+        Usuario usuarioOrigem = usuarioService.findForIdEmail("sistema@email.com");
+        Mensagem mensagemAutomatica = new Mensagem();
+
+        mensagemAutomatica.setMensagem("O " +   nomeDestino + " Leu sua mensagem. Talvez ele ignore ou não");
+        mensagemAutomatica.setEmailOrigem(usuarioOrigem);
+        if (usuarioService.existUsuario(emailDestino)) {
+            Usuario usuarioDestino = usuarioService.findForIdEmail(emailDestino);
+            mensagemAutomatica.setEmailDestino(usuarioDestino);
+            mensagemAutomatica.setDate(LocalDateTime.now());
+            mensagemAutomatica.setVisualizado(Visualizado.NAO_VISUALIZADO);
+            mensageRepository.save(mensagemAutomatica);
+
+        }
+        else {
+            throw new Exception("Usuario não encontrado");
+        }
 
     }
+
+
+
 
 }
