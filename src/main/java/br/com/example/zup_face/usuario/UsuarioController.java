@@ -26,9 +26,16 @@ public class UsuarioController {
     }
 
     @GetMapping("/{email}")
-    public Usuario findUsuarioForId(String email){
+    public Usuario findUsuarioForId(@PathVariable String email){
         return usuarioService.findForIdEmail(email);
     }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{email}")
+    public void deleteUsuarioForId(@PathVariable String email){
+        usuarioService.deleteUsuario(email);
+    }
+
 
 
 
