@@ -1,5 +1,6 @@
 package br.com.example.zup_face.usuario;
 
+import br.com.example.zup_face.exeptions.UsuarioExption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,13 +23,13 @@ public class UsuarioService {
     }
 
     //Metódo para encontrar o usuario por ID.
-    public Usuario findForIdEmail(String email){
+    public Usuario findForIdEmail(String email) throws Exception {
         return usuarioRepository.findById(email)
-                .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+                .orElseThrow(() -> new UsuarioExption("Usuario não encontrado"));
 
     }
     //Metódo para deletar usuarios
-    public void deleteUsuario(String email){
+    public void deleteUsuario(String email) throws Exception {
         usuarioRepository.delete(findForIdEmail(email));
 
     }
