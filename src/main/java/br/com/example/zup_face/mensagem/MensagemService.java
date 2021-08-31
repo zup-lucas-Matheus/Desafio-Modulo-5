@@ -1,6 +1,8 @@
 package br.com.example.zup_face.mensagem;
 
 import br.com.example.zup_face.enums.Visualizado;
+import br.com.example.zup_face.exeptions.MensagemExption;
+import br.com.example.zup_face.exeptions.UsuarioExption;
 import br.com.example.zup_face.usuario.Usuario;
 import br.com.example.zup_face.usuario.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,14 +39,13 @@ public class MensagemService {
             return mensageRepository.save(newMensagem);
         }
 
-        throw new Exception("Usuario não encontrado");
+        throw new UsuarioExption("Usuario não encontrado");
 
     }
 
     //Metódo para mostrar todas as mensagens.
     public List<Mensagem> allMensagens() {
         return (List<Mensagem>) mensageRepository.findAll();
-
     }
 
     //Metódo para buscar a mensagem por id.
@@ -65,7 +66,7 @@ public class MensagemService {
         if (mensagemBusca.isPresent()) {
             return mensagemBusca.get();
         }
-        throw new Exception("Mensagem não encontrada");
+        throw new MensagemExption("Mensagem não encontrada");
 
     }
 
@@ -89,8 +90,10 @@ public class MensagemService {
     }
 
     //Metódo para trazer a quantidade de mensagens não vizualizadas.
-    public List<Mensagem> filtrarMensagem(String email){
+    public List<Mensagem> filtrarMensagem(String email) {
+
         return this.mensageRepository.findAllByEmailDestinoEmailAndVisualizado(email, Visualizado.NAO_VISUALIZADO);
+
     }
 
     public void enviarMensagemAutomatica(String emailDestino, String nomeDestino) throws Exception {
@@ -100,6 +103,7 @@ public class MensagemService {
 
         mensagemAutomatica.setMensagem("O " +   nomeDestino + " Leu sua mensagem. Talvez ele ignore ou não");
         mensagemAutomatica.setEmailOrigem(usuarioOrigem);
+
         if (usuarioService.existUsuario(emailDestino)) {
             Usuario usuarioDestino = usuarioService.findForIdEmail(emailDestino);
             mensagemAutomatica.setEmailDestino(usuarioDestino);
@@ -109,12 +113,10 @@ public class MensagemService {
 
         }
         else {
-            throw new Exception("Usuario não encontrado");
+            throw new UsuarioExption("Usuario não encontrado");
         }
 
     }
-
-
 
 
 }
